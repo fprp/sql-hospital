@@ -1,0 +1,12 @@
+--Checklist 82
+CREATE OR REPLACE TRIGGER SemDosagem
+BEFORE UPDATE OF dosagem ON medicamento
+REFERENCING OLD as V NEW as N
+FOR EACH ROW
+
+BEGIN
+	IF(:N.dosagem <= 0) THEN
+	RAISE_APPLICATION_ERROR(-20111, 'Sem dosagem');
+	END IF;
+END;
+/
